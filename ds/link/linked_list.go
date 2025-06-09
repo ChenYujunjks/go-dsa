@@ -1,7 +1,5 @@
 package linkedlist
 
-import "fmt"
-
 type Node struct {
 	Value interface{}
 	Next  *Node
@@ -67,21 +65,4 @@ func (l *LinkedList) Delete(value interface{}) bool {
 		current = current.Next
 	}
 	return false
-}
-func (l *LinkedList) PrintForward() {
-	current := l.Head
-	for current != nil {
-		fmt.Printf("%d <-> ", current.Value)
-		current = current.Next
-	}
-	fmt.Println("nil")
-}
-
-func (l *LinkedList) PrintBackward() {
-	current := l.Tail
-	for current != nil {
-		fmt.Printf("%d <-> ", current.Value)
-		current = current.Prev
-	}
-	fmt.Println("nil")
 }
