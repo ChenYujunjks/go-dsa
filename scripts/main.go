@@ -2,6 +2,7 @@ package main
 
 import (
 	dll "github.com/ChenYujunjks/go-review/ds/link"
+	"github.com/ChenYujunjks/go-review/ds/queue"
 )
 
 func test_link() {
@@ -19,10 +20,10 @@ func test_link() {
 }
 
 func test_queue() {
-	queue := l.Queue{}
+	queue := queue.Queue{}
 
 	queue.Enqueue(1)
-	queue.Enqueue(2)
+	queue.Enqueue("apple")
 	queue.Enqueue(3)
 
 	queue.Print() // 1 -> 2 -> 3 -> nil
@@ -33,5 +34,6 @@ func test_queue() {
 	queue.Print() // 2 -> 3 -> nil
 }
 func main() {
-	test_link()
+	//test_link()
+	//stest_queue()
 }
