@@ -1,59 +1,63 @@
 package queue
 
 import (
-	"fmt"
-
-	dll "github.com/ChenYujunjks/go-review/ds/link"
+	l "github.com/ChenYujunjks/go-review/ds/link"
 )
 
 type Queue struct {
-	list dll.LinkedList
+	list *l.LinkedList
+	tail *l.Node // 为了快速 enqueue
+	len  int
 }
 
-// Enqueue 添加元素到队尾
-func (q *Queue) Enqueue(value any) {
-	q.list.Append(value)
+// New 创建一个空队列 **封装细节**
+func New() *Queue {
+	return &Queue{
+		list: &l.LinkedList{},
+		tail: nil,
+		len:  0,
+	}
+}
+
+func (q *Queue) Enqueue(value interface{}) {
+	newNode := &l.Node{Value: value}
+	if q.list.Head == nil {
+		q.list.Head = newNode
+		q.tail = newNode
+	} else {
+		q.tail.Next = newNode
+		q.tail = newNode
+	}
+	q.len++
 }
 
 // Dequeue 移除队首元素并返回
-func (q *Queue) Dequeue() any {
-	if q.IsEmpty() {
-		fmt.Println("Queue is empty")
-		return nil
+func (q *Queue) Dequeue() (interface{}, bool) {
+	if q.list.Head == nil {
+		return nil, false
 	}
-	value := q.list.Head.Value
-	q.list.Delete(value) // 删除的是头节点的值
-	return value
+
+	val := q.list.Head.Value
+	q.list.Head = q.list.Head.Next
+	q.len--
+
+	if q.list.Head == nil {
+		q.tail = nil // 队列清空，tail 也置空
+	}
+	return val, true
 }
 
-// Peek 查看队首元素但不移除
-func (q *Queue) Peek() any {
-	if q.IsEmpty() {
-		return nil
+func (q *Queue) Peek() (interface{}, bool) {
+	if q.list.Head == nil {
+		return nil, false
 	}
-	return q.list.Head.Value
+	return q.list.Head.Value, true
 }
 
-// IsEmpty 判断队列是否为空
 func (q *Queue) IsEmpty() bool {
-	return q.list.Head == nil
+	return q.len == 0
 }
 
-// Length 返回队列长度
-func (q *Queue) Length() int {
-	return dll.Length(q.list)
-}
-
-// ToSlice 返回队列所有元素
-func (q *Queue) ToSlice() []any {
-	return q.list.ToSlice()
-}
-
-func (q *Queue) Print() {
-	current := q.list.Head
-	for current != nil {
-		fmt.Printf("%v <- ", current.Value)
-		current = current.Next
-	}
-	fmt.Println("nil")
+func (q *Queue) Len() int {
+	return q.len
 }
