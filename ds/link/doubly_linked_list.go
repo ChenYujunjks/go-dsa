@@ -22,6 +22,10 @@ func (n *DNode) GetNext() NodeInter {
 	return n.Next
 }
 
+func (l *DoublyLinkedList) GetHead() NodeInter {
+	return l.Head
+}
+
 func (l *DoublyLinkedList) Append(value interface{}) {
 	newNode := &DNode{Value: value}
 	if l.Head == nil {
