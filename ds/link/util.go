@@ -11,15 +11,6 @@ func (l *LinkedList) PrintForward() {
 	fmt.Println("nil")
 }
 
-func (l *LinkedList) PrintBackward() {
-	current := l.Tail
-	for current != nil {
-		fmt.Printf("%d <-> ", current.Value)
-		current = current.Prev
-	}
-	fmt.Println("nil")
-}
-
 // Length 返回链表的长度
 func (l *LinkedList) Length() int {
 	count := 0

@@ -12,8 +12,7 @@ func test_link() {
 	list.Append(20)
 	list.Prepend(5)
 
-	list.PrintForward()  // 5 <-> 10 <-> 20 <-> nil
-	list.PrintBackward() // 20 <-> 10 <-> 5 <-> nil
+	list.PrintForward() // 5 <-> 10 <-> 20 <-> nil
 
 	list.Delete(10)
 	list.PrintForward() // 5 <-> 20 <-> nil
