@@ -41,7 +41,7 @@ func (q *Queue) IsEmpty() bool {
 
 // Length 返回队列长度
 func (q *Queue) Length() int {
-	return q.list.Length()
+	return dll.Length(q.list)
 }
 
 // ToSlice 返回队列所有元素
