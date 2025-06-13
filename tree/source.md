@@ -45,49 +45,6 @@ func main() {
 
 ---
 
-### **2. `tidwall/btree`**
-
-高性能树结构实现，适合在需要快速查找、插入、删除的场景下使用。
-
-- 地址: [https://github.com/tidwall/btree](https://github.com/tidwall/btree)
-
----
-
-### **3. `google/btree`**
-
-谷歌官方实现的 B-Tree 数据结构，适合用来高效存储和查找有序数据。
-
-- 地址: [https://pkg.go.dev/github.com/google/btree](https://pkg.go.dev/github.com/google/btree)
-
-**示例：**
-
-```go
-package main
-
-import (
-    "fmt"
-    "github.com/google/btree"
-)
-
-type Item struct {
-    Value int
-}
-
-func (a Item) Less(b btree.Item) bool {
-    return a.Value < b.(Item).Value
-}
-
-func main() {
-    tree := btree.New(2)
-    tree.ReplaceOrInsert(Item{Value: 10})
-    tree.ReplaceOrInsert(Item{Value: 20})
-
-    fmt.Println("Inserted items into B-Tree")
-}
-```
-
----
-
 ## **总结：**
 
 2. **红黑树和 AVL 树**：可以手动实现，但相对复杂，推荐使用现成的库如 **`emirpasic/gods`** 或 **`tidwall/btree`**。
