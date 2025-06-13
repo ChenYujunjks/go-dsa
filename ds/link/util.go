@@ -2,33 +2,43 @@ package linkedlist
 
 import "fmt"
 
-func (l *LinkedList) PrintForward() {
-	current := l.Head
+type NodeInter interface {
+	GetValue() interface{}
+	GetNext() NodeInter
+}
+
+type LL interface {
+	Append(value interface{})
+	GetHead() NodeInter // 返回类型你自己控制
+}
+
+func PrintForward(l LL) {
+	current := l.GetHead()
 	for current != nil {
-		fmt.Printf("%d <-> ", current.Value)
-		current = current.Next
+		fmt.Printf("%d <-> ", current.GetValue())
+		current = current.GetNext()
 	}
 	fmt.Println("nil")
 }
 
 // Length 返回链表的长度
-func (l *LinkedList) Length() int {
+func Length(l LL) int {
 	count := 0
-	current := l.Head
+	current := l.GetHead()
 	for current != nil {
 		count++
-		current = current.Next
+		current = current.GetNext()
 	}
 	return count
 }
 
 // ToSlice 将链表转换为 any的切片
-func (l *LinkedList) ToSlice() []any {
+func ToSlice(l LL) []any {
 	var result []any
-	current := l.Head
+	current := l.GetHead()
 	for current != nil {
-		result = append(result, current.Value)
-		current = current.Next
+		result = append(result, current.GetValue())
+		current = current.GetNext()
 	}
 	return result
 }

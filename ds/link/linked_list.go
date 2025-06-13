@@ -4,11 +4,21 @@ type Node struct {
 	Value interface{}
 	Next  *Node
 }
+func (n *Node) GetValue() interface{} {
+	return n.Value
+}
 
+func (n *Node) GetNext() NodeInter {
+	if n.Next == nil {
+		return nil
+	}
+	return n.Next
+}
 type LinkedList struct {
 	Head *Node
 }
 
+// Go 中，你可以在定义结构体时只指定你想赋值的字段，其他字段会被自动初始化为该类型的零值
 // Append adds a node at the end of the list.
 func (l *LinkedList) Append(value interface{}) {
 	newNode := &Node{Value: value}
@@ -59,4 +69,27 @@ func (l *LinkedList) Delete(value interface{}) bool {
 		current = current.Next
 	}
 	return false
+}
+
+// Insert inserts value at the given index (0-based).
+// If index > current length, it appends to the end.
+func (l *LinkedList) Insert(index int, value interface{}) {
+	newNode := &Node{Value: value}
+
+	if index <= 0 || l.Head == nil {
+		// Prepend at head
+		newNode.Next = l.Head
+		l.Head = newNode
+		return
+	}
+
+	current := l.Head
+	pos := 0
+	for current.Next != nil && pos < index-1 {
+		current = current.Next
+		pos++
+	}
+
+	newNode.Next = current.Next
+	current.Next = newNode
 }

@@ -1,18 +1,29 @@
 package linkedlist
 
-type DoublyNode struct {
+type DNode struct {
 	Value interface{}
-	Next  *DoublyNode
-	Prev  *DoublyNode
+	Next  *DNode
+	Prev  *DNode
 }
 
 type DoublyLinkedList struct {
-	Head *DoublyNode
-	Tail *DoublyNode
+	Head *DNode
+	Tail *DNode
+}
+
+func (n *DNode) GetValue() interface{} {
+	return n.Value
+}
+
+func (n *DNode) GetNext() NodeInter {
+	if n.Next == nil {
+		return nil
+	}
+	return n.Next
 }
 
 func (l *DoublyLinkedList) Append(value interface{}) {
-	newNode := &DoublyNode{Value: value}
+	newNode := &DNode{Value: value}
 	if l.Head == nil {
 		l.Head = newNode
 		l.Tail = newNode
@@ -24,7 +35,7 @@ func (l *DoublyLinkedList) Append(value interface{}) {
 }
 
 func (l *DoublyLinkedList) Prepend(value interface{}) {
-	newNode := &DoublyNode{Value: value}
+	newNode := &DNode{Value: value}
 	if l.Head == nil {
 		l.Head = newNode
 		l.Tail = newNode
@@ -35,7 +46,7 @@ func (l *DoublyLinkedList) Prepend(value interface{}) {
 	l.Head = newNode
 }
 
-func (l *DoublyLinkedList) Find(value interface{}) *DoublyNode {
+func (l *DoublyLinkedList) Find(value interface{}) *DNode {
 	current := l.Head
 	for current != nil {
 		if current.Value == value {
