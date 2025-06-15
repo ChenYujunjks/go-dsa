@@ -67,11 +67,15 @@ Created with love and curiosity by [@yourusername](https://github.com/youruserna
 
 ---
 
-## 🌟 Highlighted Commit: Fixing Go interface-nil Trap in LinkedList
+## 🔍 Highlighted Commit: Fixing Go Interface Nil Trap
 
-One of the classic Go pitfalls is that an interface holding a nil pointer is **not itself nil**, which can cause unexpected `panic: invalid memory address or nil pointer dereference` errors.
+We resolved a tricky panic in our LinkedList implementation due to the Go interface `nil` trap.
 
-In this [commit](https://github.com/YourUsername/your-repo/commit/abcdef123456), we fixed this issue in our custom LinkedList implementation by introducing a helper:
+🧠 Problem: A node interface (`NodeInter`) that _looked_ like `nil` was not truly `nil`, leading to incorrect behavior in `IsNilNode` checks and bugs in `ToSlice()` and list emptiness checks.
+
+✅ Fix Commit: [`55cf479`](https://github.com/ChenYujunjks/go-review/commit/55cf479)
+
+🔧 Solution: Introduced a helper using `reflect` to robustly detect true nil interfaces:
 
 ```go
 func IsNilNode(n iface.NodeInter) bool {
@@ -81,3 +85,5 @@ func IsNilNode(n iface.NodeInter) bool {
 	return reflect.ValueOf(n).IsNil()
 }
 ```
+
+🧪 Result: All related unit tests now pass, ensuring safe `ToSlice()` and `Length()` operations.
