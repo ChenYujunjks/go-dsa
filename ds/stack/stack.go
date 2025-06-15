@@ -1,13 +1,17 @@
 package stack
 
 import (
-	dll "github.com/ChenYujunjks/go-review/ds/link"
+	l "github.com/ChenYujunjks/go-review/ds/link"
 )
 
 type Stack struct {
-	list dll.LinkedList
+	list l.LinkedList
+	len  int
 }
 
-func (s *Stack) Push(value any) {
-	s.list.Append(value)
+// Push 将元素压入栈顶（链表头部）
+func (s *Stack) Push(val interface{}) {
+	newNode := &l.Node{Value: val, Next: s.list.Head}
+	s.list.Head = newNode
+	s.len++
 }

@@ -1,54 +1,55 @@
-// linkedlist_test.go
-package linkedlist
+package list_test
 
 import (
 	"reflect"
 	"testing"
+
+	list "github.com/ChenYujunjks/go-review/ds/link/list"
 )
 
-func TestLinkedList_Append(t *testing.T) {
-	l := &LinkedList{}
+func TestList_Append(t *testing.T) {
+	l := list.NewList()
 	l.Append(10)
 	l.Append(20)
 	l.Append(30)
 
 	expected := []any{10, 20, 30}
-	result := ToSlice(l)
+	result := l.ToSlice()
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Append failed. Expected %v, got %v", expected, result)
 	}
 }
 
-func TestLinkedList_Prepend(t *testing.T) {
-	l := &LinkedList{}
+func TestList_Prepend(t *testing.T) {
+	l := list.NewList()
 	l.Append(20)
 	l.Prepend(10)
 
 	expected := []any{10, 20}
-	result := ToSlice(l)
+	result := l.ToSlice()
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Prepend failed. Expected %v, got %v", expected, result)
 	}
 }
 
-func TestLinkedList_Insert(t *testing.T) {
-	l := &LinkedList{}
+func TestList_Insert(t *testing.T) {
+	l := list.NewList()
 	l.Append(1)
 	l.Append(3)
-	l.Insert(1, 2) // 插入到中间
+	l.Insert(1, 2) // 插入中间
 
 	expected := []any{1, 2, 3}
-	result := ToSlice(l)
+	result := l.ToSlice()
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Insert failed. Expected %v, got %v", expected, result)
 	}
 }
 
-func TestLinkedList_Delete(t *testing.T) {
-	l := &LinkedList{}
+func TestList_Delete(t *testing.T) {
+	l := list.NewList()
 	l.Append(1)
 	l.Append(2)
 	l.Append(3)
@@ -59,15 +60,15 @@ func TestLinkedList_Delete(t *testing.T) {
 	}
 
 	expected := []any{1, 3}
-	result := ToSlice(l)
+	result := l.ToSlice()
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Delete failed. Expected %v, got %v", expected, result)
 	}
 }
 
-func TestLinkedList_Find(t *testing.T) {
-	l := &LinkedList{}
+func TestList_Find(t *testing.T) {
+	l := list.NewList()
 	l.Append("apple")
 	l.Append("banana")
 
@@ -82,20 +83,20 @@ func TestLinkedList_Find(t *testing.T) {
 	}
 }
 
-func TestLinkedList_Length(t *testing.T) {
-	l := &LinkedList{}
+func TestList_Length(t *testing.T) {
+	l := list.NewList()
 	l.Append(1)
 	l.Append(2)
 	l.Append(3)
 
-	if Length(l) != 3 {
-		t.Errorf("Length failed. Expected 3, got %d", Length(l))
+	if l.Length() != 3 {
+		t.Errorf("Length failed. Expected 3, got %d", l.Length())
 	}
 }
 
-func TestLinkedList_ToSlice_Empty(t *testing.T) {
-	l := &LinkedList{}
-	result := ToSlice(l)
+func TestList_ToSlice_Empty(t *testing.T) {
+	l := list.NewList()
+	result := l.ToSlice()
 	if len(result) != 0 {
 		t.Errorf("ToSlice on empty list failed. Expected [], got %v", result)
 	}
