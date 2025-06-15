@@ -2,10 +2,9 @@ package iface
 
 type NodeInter interface {
 	GetValue() interface{}
-	GetNext() NodeInter
+	GetNext() NodeInter // 返回接口
 }
 
 type LL interface {
-	Append(value interface{})
-	GetHead() NodeInter // 返回类型你自己控制
+	GetHead() NodeInter // 返回接口
 }

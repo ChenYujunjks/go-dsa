@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"reflect"
 
 	"github.com/ChenYujunjks/go-review/ds/iface"
 )
@@ -15,11 +16,18 @@ func PrintForward(l iface.LL) {
 	fmt.Println("nil")
 }
 
+func IsNilNode(n iface.NodeInter) bool {
+	if n == nil {
+		return true
+	}
+	return reflect.ValueOf(n).IsNil()
+}
+
 // Length 返回链表的长度
 func Length(l iface.LL) int {
 	count := 0
 	current := l.GetHead()
-	for current != nil {
+	for !IsNilNode(current) {
 		count++
 		current = current.GetNext()
 	}
@@ -30,7 +38,7 @@ func Length(l iface.LL) int {
 func ToSlice(l iface.LL) []any {
 	var result []any
 	current := l.GetHead()
-	for current != nil {
+	for !IsNilNode(current) {
 		result = append(result, current.GetValue())
 		current = current.GetNext()
 	}

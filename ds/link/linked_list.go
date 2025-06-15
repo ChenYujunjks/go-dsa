@@ -9,11 +9,14 @@ type Node struct {
 
 // Node 方法实现了 NodeInter 接口
 func (n *Node) GetValue() interface{} {
+	if n == nil {
+		return nil
+	}
 	return n.Value
 }
 
 func (n *Node) GetNext() iface.NodeInter {
-	if n.Next == nil {
+	if n == nil {
 		return nil
 	}
 	return n.Next
