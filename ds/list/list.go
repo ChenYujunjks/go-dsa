@@ -1,6 +1,7 @@
 package list
 
-import l "github.com/ChenYujunjks/go-review/ds/link"
+import (l "github.com/ChenYujunjks/go-review/ds/link"
+"github.com/ChenYujunjks/go-review/ds/iface")
 
 type List struct {
 	ll *l.LinkedList
@@ -10,7 +11,7 @@ func NewList() *List {
 	return &List{ll: &l.LinkedList{}}
 }
 
-func (lst *List) GetHead() l.NodeInter {
+func (lst *List) GetHead() iface.NodeInter {
 	return lst.ll.Head
 }
 
@@ -63,6 +64,20 @@ func (lst *List) Delete(value interface{}) bool {
 		current = current.Next
 	}
 	return false
+}
+
+func (lst *List) Get(index int) (interface{}, bool) {
+	if index < 0 {
+		return nil, false
+	}
+	current := lst.ll.Head
+	for i := 0; current != nil; i++ {
+		current = current.Next
+	}
+	if current == nil {
+		return nil, false
+	}
+	return current.Value, true
 }
 
 // Insert inserts value at the given index (0-based).

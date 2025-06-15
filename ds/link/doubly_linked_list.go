@@ -1,5 +1,7 @@
 package linkedlist
 
+import "github.com/ChenYujunjks/go-review/ds/iface"
+
 type DNode struct {
 	Value interface{}
 	Next  *DNode
@@ -15,14 +17,14 @@ func (n *DNode) GetValue() interface{} {
 	return n.Value
 }
 
-func (n *DNode) GetNext() NodeInter {
+func (n *DNode) GetNext() iface.NodeInter {
 	if n.Next == nil {
 		return nil
 	}
 	return n.Next
 }
 
-func (l *DoublyLinkedList) GetHead() NodeInter {
+func (l *DoublyLinkedList) GetHead() iface.NodeInter {
 	return l.Head
 }
 

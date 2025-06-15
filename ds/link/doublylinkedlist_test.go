@@ -4,6 +4,8 @@ package linkedlist
 import (
 	"reflect"
 	"testing"
+
+	"github.com/ChenYujunjks/go-review/ds/utils"
 )
 
 func TestDoublyLinkedList_Append(t *testing.T) {
@@ -13,7 +15,7 @@ func TestDoublyLinkedList_Append(t *testing.T) {
 	l.Append(30)
 
 	expected := []any{10, 20, 30}
-	result := ToSlice(l)
+	result := utils.ToSlice(l)
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Append failed. Expected %v, got %v", expected, result)
@@ -26,7 +28,7 @@ func TestDoublyLinkedList_Prepend(t *testing.T) {
 	l.Prepend(10)
 
 	expected := []any{10, 20}
-	result := ToSlice(l)
+	result := utils.ToSlice(l)
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Prepend failed. Expected %v, got %v", expected, result)
@@ -45,7 +47,7 @@ func TestDoublyLinkedList_Delete(t *testing.T) {
 	}
 
 	expected := []any{1, 3}
-	result := ToSlice(l)
+	result := utils.ToSlice(l)
 
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Delete failed. Expected %v, got %v", expected, result)
@@ -75,14 +77,14 @@ func TestDoublyLinkedList_Length(t *testing.T) {
 	l.Append(2)
 	l.Append(3)
 
-	if Length(l) != 3 {
-		t.Errorf("Length failed. Expected 3, got %d", Length(l))
+	if utils.Length(l) != 3 {
+		t.Errorf("Length failed. Expected 3, got %d", utils.Length(l))
 	}
 }
 
 func TestDoublyLinkedList_ToSlice_Empty(t *testing.T) {
 	l := &DoublyLinkedList{}
-	result := ToSlice(l)
+	result := utils.ToSlice(l)
 	if len(result) != 0 {
 		t.Errorf("ToSlice on empty list failed. Expected [], got %v", result)
 	}

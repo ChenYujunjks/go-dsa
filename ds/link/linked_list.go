@@ -1,24 +1,18 @@
 package linkedlist
 
-type NodeInter interface {
-	GetValue() interface{}
-	GetNext() NodeInter
-}
+import "github.com/ChenYujunjks/go-review/ds/iface"
 
-type LL interface {
-	Append(value interface{})
-	GetHead() NodeInter // 返回类型你自己控制
-}
 type Node struct {
 	Value interface{}
 	Next  *Node
 }
 
+// Node 方法实现了 NodeInter 接口
 func (n *Node) GetValue() interface{} {
 	return n.Value
 }
 
-func (n *Node) GetNext() NodeInter {
+func (n *Node) GetNext() iface.NodeInter {
 	if n.Next == nil {
 		return nil
 	}
@@ -29,7 +23,8 @@ type LinkedList struct {
 	Head *Node
 }
 
-func (l *LinkedList) GetHead() NodeInter {
+// LinkedList 方法实现了 LL 接口
+func (l *LinkedList) GetHead() iface.NodeInter {
 	return l.Head
 }
 
