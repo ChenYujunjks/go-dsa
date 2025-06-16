@@ -1,6 +1,7 @@
 package queue
 
 import (
+	"github.com/ChenYujunjks/go-review/ds/iface"
 	l "github.com/ChenYujunjks/go-review/ds/link"
 )
 
@@ -47,6 +48,8 @@ func (q *Queue) Dequeue() (interface{}, bool) {
 	return val, true
 }
 
+// Peek 返回队首元素但不移除它
+// 如果队列为空，返回 nil 和 false
 func (q *Queue) Peek() (interface{}, bool) {
 	if q.list.Head == nil {
 		return nil, false
@@ -54,10 +57,16 @@ func (q *Queue) Peek() (interface{}, bool) {
 	return q.list.Head.Value, true
 }
 
+// 为了性能 不然用接口
 func (q *Queue) IsEmpty() bool {
 	return q.len == 0
 }
 
 func (q *Queue) Len() int {
 	return q.len
+}
+
+// 实现接口
+func (q *Queue) GetHead() iface.NodeInter {
+	return q.list.Head
 }

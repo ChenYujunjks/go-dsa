@@ -23,7 +23,7 @@ func IsNilNode(n iface.NodeInter) bool {
 	return reflect.ValueOf(n).IsNil()
 }
 
-// Length 返回链表的长度
+
 func Length(l iface.LL) int {
 	count := 0
 	current := l.GetHead()
