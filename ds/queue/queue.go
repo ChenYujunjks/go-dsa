@@ -11,7 +11,7 @@ type Queue struct {
 	len  int
 }
 
-// New 创建一个空队列 **封装细节**
+// New 创建一个空队列 封装细节
 func New() *Queue {
 	return &Queue{
 		list: &l.LinkedList{},

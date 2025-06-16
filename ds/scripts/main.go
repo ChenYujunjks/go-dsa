@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	linkedlist "github.com/ChenYujunjks/go-review/ds/link"
-	"github.com/ChenYujunjks/go-review/ds/list"
+	"github.com/ChenYujunjks/go-review/ds/stack"
 	"github.com/ChenYujunjks/go-review/ds/utils"
 )
 
@@ -27,18 +28,22 @@ func main() {
 	fmt.Println(utils.ToSlice(l2))
 	fmt.Println("LinkedList Length:", utils.Length(l2))
 
-	fmt.Println("List Part--------------------------------------------")
+	fmt.Println("Stack LL Part--------------------------------------------")
 
-	l5 := list.NewList()
-	l5.Append(1)
-	l5.Append(2)
-	l5.Append(3)
-	l5.Prepend(10)
-	fmt.Println("List Elements:", utils.ToSlice(l5))
-	val, ok := l5.Get(3)
-	if ok {
-		fmt.Println("Get index 1:", val)
-	} else {
-		fmt.Println("Get index 1: not found")
+	s := stack.New()
+
+	s.Push(10)
+	s.Push(20)
+	s.Push(30)
+
+	slice := utils.ToSlice(s)
+
+	expected := []any{30, 20, 10}
+	for i, val := range expected {
+		if slice[i] != val {
+			log.Fatalf("❌ Expected %v at index %d, got %v", val, i, slice[i])
+		}
 	}
+
+	fmt.Println("✅ All elements matched expected stack order.")
 }
