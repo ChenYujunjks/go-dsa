@@ -101,3 +101,28 @@ func TestList_ToSlice_Empty(t *testing.T) {
 		t.Errorf("ToSlice on empty list failed. Expected [], got %v", result)
 	}
 }
+func TestList_Get(t *testing.T) {
+	l := NewList()
+	l.Append("a")
+	l.Append("b")
+	l.Append("c")
+
+	tests := []struct {
+		index    int
+		expected interface{}
+		ok       bool
+	}{
+		{0, "a", true},
+		{1, "b", true},
+		{2, "c", true},
+		{3, nil, false},  // 超出范围
+		{-1, nil, false}, // 负数下标
+	}
+
+	for _, tt := range tests {
+		val, ok := l.Get(tt.index)
+		if ok != tt.ok || val != tt.expected {
+			t.Errorf("Get(%d) = (%v, %v), expected (%v, %v)", tt.index, val, ok, tt.expected, tt.ok)
+		}
+	}
+}

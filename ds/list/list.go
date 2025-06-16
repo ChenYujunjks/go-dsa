@@ -1,7 +1,9 @@
 package list
 
-import (l "github.com/ChenYujunjks/go-review/ds/link"
-"github.com/ChenYujunjks/go-review/ds/iface")
+import (
+	"github.com/ChenYujunjks/go-review/ds/iface"
+	l "github.com/ChenYujunjks/go-review/ds/link"
+)
 
 type List struct {
 	ll *l.LinkedList
@@ -71,7 +73,7 @@ func (lst *List) Get(index int) (interface{}, bool) {
 		return nil, false
 	}
 	current := lst.ll.Head
-	for i := 0; current != nil; i++ {
+	for i := 0; current != nil && i < index; i++ {
 		current = current.Next
 	}
 	if current == nil {
