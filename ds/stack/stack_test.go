@@ -3,7 +3,6 @@ package stack
 import (
 	"testing"
 
-	"github.com/ChenYujunjks/go-review/ds/iface"
 	l "github.com/ChenYujunjks/go-review/ds/link"
 	"github.com/ChenYujunjks/go-review/ds/utils"
 )
@@ -80,18 +79,14 @@ func TestStack_LenAndIsEmpty(t *testing.T) {
 	}
 }
 
-func TestQueue_ImplementsLL(t *testing.T) {
+func TestStack_ImplementsLL(t *testing.T) {
 	s := New()
 
 	s.Push(10)
 	s.Push(20)
 	s.Push(30)
 
-	// 使用接口类型接收
-	var ll iface.LL = s
-
-	// 用 utils.ToSlice 处理接口
-	slice := utils.ToSlice(ll)
+	slice := utils.ToSlice(s)
 
 	expected := []any{30, 20, 10}
 	for i, val := range expected {
