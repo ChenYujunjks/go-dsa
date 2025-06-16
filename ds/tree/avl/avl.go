@@ -1,8 +1,9 @@
 package avl
 
 import (
-	"algorithm/tree/bst"
 	"fmt"
+
+	"github.com/ChenYujunjks/go-review/ds/tree/bst"
 )
 
 // Utility to get node height
