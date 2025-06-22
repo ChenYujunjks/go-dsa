@@ -27,3 +27,21 @@ func insertRecursive(node *TreeNode, val int) *TreeNode {
 	// 若 val == node.Val，忽略重复插入（也可以选择允许重复）
 	return node
 }
+
+// 辅助递归函数，使用指针收集结果
+func inorder(node *TreeNode, result *[]int) {
+	if node == nil {
+		return
+	}
+	inorder(node.Left, result)
+	*result = append(*result, node.Val)
+	inorder(node.Right, result)
+}
+func (t *BST) InorderTraversal() []int {
+	var result []int
+	inorder(t.Root, &result)
+	return result
+}
+func (t *BST) PreorderTraversal() []int
+func (t *BST) PostorderTraversal() []int
+func (t *BST) LevelOrderTraversal() [][]int
