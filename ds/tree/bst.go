@@ -85,7 +85,8 @@ func (t *BST) LevelOrderTraversal() []int {
 
 	for !q.IsEmpty(){
 		nodeAny, _ := q.Dequeue()
-		node := nodeAny.(*TreeNode) // 类型断言回原始类型
+		node := nodeAny.(*TreeNode) //类型断言（type assertion）回原始类型
+//“我确信接口变量 x 中存的是 T 类型的值，请把它强制还原成 T 类型。”
 		result = append(result, node.Val)
 		if node.Left != nil{
 			q.Enqueue(node.Left)
