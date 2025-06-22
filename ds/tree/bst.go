@@ -37,6 +37,22 @@ func inorder(node *TreeNode, result *[]int) {
 	*result = append(*result, node.Val)
 	inorder(node.Right, result)
 }
+func preorder(node *TreeNode, result *[]int) {
+	if node == nil {
+		return
+	}
+	*result = append(*result, node.Val)
+	preorder(node.Left, result)
+	preorder(node.Right, result)
+}
+func postorder(node *TreeNode, result *[]int) {
+	if node == nil {
+		return
+	}
+	postorder(node.Left, result)
+	postorder(node.Right, result)
+	*result = append(*result, node.Val)
+}
 
 // InorderTraversal 返回 BST 的中序遍历结果：左 -> 根 -> 右
 func (t *BST) InorderTraversal() []int {
@@ -45,6 +61,18 @@ func (t *BST) InorderTraversal() []int {
 	return result
 }
 
-func (t *BST) PreorderTraversal() []int
-func (t *BST) PostorderTraversal() []int
-func (t *BST) LevelOrderTraversal() [][]int
+func (t *BST) PreorderTraversal() []int {
+	var result []int
+	preorder(t.Root, &result)
+	return result
+}
+
+func (t *BST) PostorderTraversal() []int {
+	var result []int
+	postorder(t.Root, &result)
+	return result
+}
+
+func (t *BST) LevelOrderTraversal() []int {
+
+}
