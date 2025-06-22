@@ -1,5 +1,7 @@
 package tree
 
+import "github.com/ChenYujunjks/go-review/ds/queue"
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -74,5 +76,23 @@ func (t *BST) PostorderTraversal() []int {
 }
 
 func (t *BST) LevelOrderTraversal() []int {
+	var result []int
+	if t.Root == nil {
+		return result
+	}
+	q := queue.New()
+	q.Enqueue(t.Root)
 
+	for !q.IsEmpty(){
+		nodeAny, _ := q.Dequeue()
+		node := nodeAny.(*TreeNode) // 类型断言回原始类型
+		result = append(result, node.Val)
+		if node.Left != nil{
+			q.Enqueue(node.Left)
+		}
+		if node.Right != nil{
+			q.Enqueue(node.Right)
+		}
+	}
+	return result
 }

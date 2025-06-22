@@ -49,3 +49,17 @@ func TestPostorderTraversal(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, actual)
 	}
 }
+func TestLevelOrderTraversal(t *testing.T) {
+	bst := &BST{}
+	values := []int{5, 3, 7, 2, 4, 8}
+	for _, v := range values {
+		bst.Insert(v)
+	}
+
+	expected := []int{5, 3, 7, 2, 4, 8}
+	actual := bst.LevelOrderTraversal()
+
+	if !reflect.DeepEqual(actual, expected) {
+		t.Errorf("Expected %v, got %v", expected, actual)
+	}
+}
