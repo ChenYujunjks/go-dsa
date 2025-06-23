@@ -11,5 +11,20 @@ func InvertTree(root *TreeNode) *TreeNode {
 
 // IsSymmetric 判断二叉树是否左右对称
 func IsSymmetric(root *TreeNode) bool {
-	// 你来实现
+	if root == nil {
+		return true
+	}
+	return isMirror(root.Left, root.Right)
+}
+func isMirror(t1, t2 *TreeNode) bool {
+	if t1 == nil && t2 == nil {
+		return true
+	}
+	if t1 == nil || t2 == nil {
+		return false
+	}
+	if t1.Val != t2.Val {
+		return false
+	}
+	return isMirror(t1.Left, t2.Right) && isMirror(t1.Right, t2.Left)
 }

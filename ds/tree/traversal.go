@@ -35,6 +35,7 @@ func (t *BST) InorderTraversal() []int {
 	return result
 }
 
+// PreorderTraversal 返回 BST 的前序遍历结果：根 -> 左 -> 右
 func (t *BST) PreorderTraversal() []int {
 	var result []int
 	preorder(t.Root, &result)
@@ -47,23 +48,24 @@ func (t *BST) PostorderTraversal() []int {
 	return result
 }
 
-func (t *BST) LevelOrderTraversal() []int {
+// bfs
+func (root *TreeNode) LevelOrderTraversal() []int {
 	var result []int
-	if t.Root == nil {
+	if root == nil {
 		return result
 	}
 	q := queue.New()
-	q.Enqueue(t.Root)
+	q.Enqueue(root)
 
-	for !q.IsEmpty(){
+	for !q.IsEmpty() {
 		nodeAny, _ := q.Dequeue()
 		node := nodeAny.(*TreeNode) //类型断言（type assertion）回原始类型
-//“我确信接口变量 x 中存的是 T 类型的值，请把它强制还原成 T 类型。”
+		//“我确信接口变量 x 中存的是 T 类型的值，请把它强制还原成 T 类型。”
 		result = append(result, node.Val)
-		if node.Left != nil{
+		if node.Left != nil {
 			q.Enqueue(node.Left)
 		}
-		if node.Right != nil{
+		if node.Right != nil {
 			q.Enqueue(node.Right)
 		}
 	}
