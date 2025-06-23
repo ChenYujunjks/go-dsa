@@ -1,5 +1,34 @@
 package tree
 
+func InvertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+
+	root.Left, root.Right = InvertTree(root.Right), InvertTree(root.Left)
+	return root
+}
+
+// IsSymmetric 判断二叉树是否左右对称
+func IsSymmetric(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	return isMirror(root.Left, root.Right)
+}
+func isMirror(t1, t2 *TreeNode) bool {
+	if t1 == nil && t2 == nil {
+		return true
+	}
+	if t1 == nil || t2 == nil {
+		return false
+	}
+	if t1.Val != t2.Val {
+		return false
+	}
+	return isMirror(t1.Left, t2.Right) && isMirror(t1.Right, t2.Left)
+}
+
 // BuildTree 根据 preorder 和 inorder 构建二叉树
 func BuildTree(preorder []int, inorder []int) *TreeNode {
 	if len(preorder) == 0 || len(inorder) == 0 {
