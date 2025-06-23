@@ -180,3 +180,13 @@ func TestBuildTree_LeftOnly(t *testing.T) {
 		t.Errorf("BuildTree (left only) failed. Expected %v, got %v", want, got)
 	}
 }
+func TestBuildTree_Empty(t *testing.T) {
+	var preorder []int
+	var inorder []int
+
+	root := BuildTree(preorder, inorder)
+
+	if root != nil {
+		t.Errorf("BuildTree (empty) failed. Expected nil, got non-nil")
+	}
+}
