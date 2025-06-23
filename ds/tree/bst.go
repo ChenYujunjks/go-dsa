@@ -67,5 +67,30 @@ func insertRecursive(node *TreeNode, val int) *TreeNode {
 }
 
 func DeleteNode(root *TreeNode, key int) *TreeNode {
-	return
+	if root == nil {
+		return nil
+	}
+
+	if key < root.Val {
+		root.Left = DeleteNode(root.Left, key)
+	} else if key > root.Val {
+		root.Right = DeleteNode(root.Right, key)
+	} else {
+		// ✅ 找到要删除的节点（val == key）
+
+		// 情况 1：叶子节点（左右都是 nil）
+		if root.Left == nil && root.Right == nil {
+			return nil
+		}
+
+		// 情况 2：只有一个子节点
+		if root.Left == nil {
+			return root.Right
+		}
+		if root.Right == nil {
+			return root.Left
+		}
+
+		// 情况 3 留空，后续处理
+	}
 }
