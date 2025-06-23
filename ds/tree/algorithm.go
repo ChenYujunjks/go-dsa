@@ -50,3 +50,27 @@ func BuildTree(preorder []int, inorder []int) *TreeNode {
 	root.Right = BuildTree(preorder[idx+1:], inorder[idx+1:])
 	return root
 }
+
+func HasPathSum(root *TreeNode, targetSum int) bool {
+	if root == nil {
+		return false
+	}
+	// 如果到了叶子节点
+	if root.isLeaf() {
+		return targetSum == root.Val
+	}
+	t := targetSum - root.Val
+
+	return HasPathSum(root.Left, t) || HasPathSum(root.Right, t)
+}
+
+// MaxDepth 返回二叉树的最大深度
+func MaxDepth(root *TreeNode) int {
+	// 你来实现
+	if root.isLeaf() {
+		return 1
+	}
+	left := MaxDepth(root.Left)
+	right := MaxDepth(root.Right)
+	return 1 + max(left, right)
+}
