@@ -6,15 +6,46 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-type BST struct {
-	Root *TreeNode
-}
-
 func (node *TreeNode) isLeaf() bool {
 	if node == nil {
 		return false // 或者 panic("nil node")，看你需要
 	}
 	return node.Left == nil && node.Right == nil
+}
+
+type BST struct {
+	Root *TreeNode
+}
+
+// 严格不重复
+func IsValidBST(root *TreeNode) bool {
+	return validate(root, nil, nil)
+}
+
+func validate(node *TreeNode, min *int, max *int) bool {
+	if node == nil {
+		return true
+	}
+	if min != nil && node.Val <= *min {
+		return false
+	}
+	if max != nil && node.Val >= *max {
+		return false
+	}
+	return validate(node.Left, min, &node.Val) && validate(node.Right, &node.Val, max)
+}
+
+func SearchBST(root *TreeNode, val int) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	if root.Val == val {
+		return root
+	}
+	if root.Val < val {
+		return SearchBST(root.Right, val)
+	}
+	return SearchBST(root.Left, val)
 }
 
 func (t *BST) Insert(val int) {
@@ -33,4 +64,8 @@ func insertRecursive(node *TreeNode, val int) *TreeNode {
 	}
 	// 若 val == node.Val，忽略重复插入（也可以选择允许重复）
 	return node
+}
+
+func DeleteNode(root *TreeNode, key int) *TreeNode {
+	return
 }
