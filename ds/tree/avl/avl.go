@@ -3,11 +3,12 @@ package avl
 import (
 	"fmt"
 
+	"github.com/ChenYujunjks/go-review/ds/tree"
 	"github.com/ChenYujunjks/go-review/ds/tree/bst"
 )
 
 // Utility to get node height
-func height(n *bst.Node) int {
+func height(n *tree.TreeNode) int {
 	if n == nil {
 		return 0
 	}
@@ -15,7 +16,7 @@ func height(n *bst.Node) int {
 }
 
 // Update node height
-func (n *bst.Node) updateHeight() {
+func (n *tree.TreeNode) updateHeight() {
 	lh, rh := height(n.Left), height(n.Right)
 	if lh > rh {
 		n.Height = lh + 1
@@ -25,12 +26,12 @@ func (n *bst.Node) updateHeight() {
 }
 
 // Calculate balance factor
-func (n *bst.Node) balanceFactor() int {
+func (n *tree.TreeNode) balanceFactor() int {
 	return height(n.Left) - height(n.Right)
 }
 
 // Placeholder for rotation and insertion logic
-func (n *bst.Node) Insert_AVL(value int) *bst.Node {
+func (n *tree.TreeNode) Insert_AVL(value int) *bst.Node {
 	// AVL Insertion logic should be added here, including rotations
 	// For now, this is a placeholder for demonstration.
 	return n
