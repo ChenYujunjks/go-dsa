@@ -152,25 +152,6 @@ func TestIsSymmetric(t *testing.T) {
 		t.Errorf("IsSymmetric incorrectly returned true for asymmetric tree")
 	}
 }
-func LevelOrderTraversalFlat(root *TreeNode) []int {
-	var result []int
-	if root == nil {
-		return result
-	}
-	q := []*TreeNode{root}
-	for len(q) > 0 {
-		node := q[0]
-		q = q[1:]
-		result = append(result, node.Val)
-		if node.Left != nil {
-			q = append(q, node.Left)
-		}
-		if node.Right != nil {
-			q = append(q, node.Right)
-		}
-	}
-	return result
-}
 
 func TestBuildTree_NormalCase(t *testing.T) {
 	preorder := []int{3, 9, 20, 15, 7}
@@ -178,7 +159,7 @@ func TestBuildTree_NormalCase(t *testing.T) {
 
 	root := BuildTree(preorder, inorder)
 
-	got := LevelOrderTraversal(root) // ✅ 使用你自己的 BFS 函数
+	got := root.LevelOrderTraversal() // ✅ 使用你自己的 BFS 函数
 	want := []int{3, 9, 20, 15, 7}
 
 	if !reflect.DeepEqual(got, want) {
@@ -192,7 +173,7 @@ func TestBuildTree_LeftOnly(t *testing.T) {
 
 	root := BuildTree(preorder, inorder)
 
-	got := LevelOrderTraversalFlat(root)
+	got :=root.LevelOrderTraversal()
 	want := []int{5, 4, 3, 2, 1}
 
 	if !reflect.DeepEqual(got, want) {

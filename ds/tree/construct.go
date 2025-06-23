@@ -18,6 +18,6 @@ func BuildTree(preorder []int, inorder []int) *TreeNode {
 	//因为 左边的树的数量一定是相等的 所以 preorder[1:1+idx]和inorder[:idx] 都是左tree
 	// preorder[0]和inorder[idx] 都是根节点
 	root.Left = BuildTree(preorder[1:1+idx], inorder[:idx])
-	root.Left = BuildTree(preorder[1+idx:], inorder[idx+1:])
+	root.Right = BuildTree(preorder[idx+1:], inorder[idx+1:])
 	return root
 }
