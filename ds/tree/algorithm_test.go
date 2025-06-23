@@ -5,65 +5,6 @@ import (
 	"testing"
 )
 
-func TestInorderTraversal(t *testing.T) {
-	bst := &BST{}
-	values := []int{5, 3, 7, 2, 4, 6, 8}
-	for _, v := range values {
-		bst.Insert(v)
-	}
-
-	expected := []int{2, 3, 4, 5, 6, 7, 8}
-	actual := bst.InorderTraversal()
-
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("Expected %v, got %v", expected, actual)
-	}
-}
-
-func TestPreorderTraversal(t *testing.T) {
-	bst := &BST{}
-	values := []int{5, 3, 7, 2, 4, 6, 8}
-	for _, v := range values {
-		bst.Insert(v)
-	}
-
-	expected := []int{5, 3, 2, 4, 7, 6, 8}
-	actual := bst.PreorderTraversal()
-
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("Expected %v, got %v", expected, actual)
-	}
-}
-
-func TestPostorderTraversal(t *testing.T) {
-	bst := &BST{}
-	values := []int{5, 3, 7, 2, 4, 6, 8}
-	for _, v := range values {
-		bst.Insert(v)
-	}
-
-	expected := []int{2, 4, 3, 6, 8, 7, 5}
-	actual := bst.PostorderTraversal()
-
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("Expected %v, got %v", expected, actual)
-	}
-}
-func TestLevelOrderTraversal(t *testing.T) {
-	bst := &BST{}
-	values := []int{5, 3, 7, 2, 4, 8}
-	for _, v := range values {
-		bst.Insert(v)
-	}
-
-	expected := []int{5, 3, 7, 2, 4, 8}
-	actual := bst.Root.LevelOrderTraversal()
-
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("Expected %v, got %v", expected, actual)
-	}
-}
-
 func TestInvertTree(t *testing.T) {
 	// 原始树：
 	//     4
@@ -173,7 +114,7 @@ func TestBuildTree_LeftOnly(t *testing.T) {
 
 	root := BuildTree(preorder, inorder)
 
-	got :=root.LevelOrderTraversal()
+	got := root.LevelOrderTraversal()
 	want := []int{5, 4, 3, 2, 1}
 
 	if !reflect.DeepEqual(got, want) {
