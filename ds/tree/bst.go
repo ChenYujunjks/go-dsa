@@ -18,8 +18,8 @@ type BST struct {
 }
 
 // 严格不重复
-func IsValidBST(root *TreeNode) bool {
-	return validate(root, nil, nil)
+func (t *BST) IsValid() bool {
+	return validate(t.Root, nil, nil)
 }
 
 func validate(node *TreeNode, min *int, max *int) bool {
@@ -35,7 +35,8 @@ func validate(node *TreeNode, min *int, max *int) bool {
 	return validate(node.Left, min, &node.Val) && validate(node.Right, &node.Val, max)
 }
 
-func SearchBST(root *TreeNode, val int) *TreeNode {
+func (t *BST) Search(val int) *TreeNode { return searchNode(t.Root, val) }
+func searchNode(root *TreeNode, val int) *TreeNode {
 	if root == nil {
 		return nil
 	}
@@ -43,9 +44,9 @@ func SearchBST(root *TreeNode, val int) *TreeNode {
 		return root
 	}
 	if root.Val < val {
-		return SearchBST(root.Right, val)
+		return searchNode(root.Right, val)
 	}
-	return SearchBST(root.Left, val)
+	return searchNode(root.Left, val)
 }
 
 func (t *BST) Insert(val int) {
@@ -66,20 +67,20 @@ func insertRecursive(node *TreeNode, val int) *TreeNode {
 	return node
 }
 
-func DeleteNode(root *TreeNode, key int) *TreeNode {
-	if root == nil {
-		return nil
-	}
-
+// Delete 删除节点
+func (t *BST) Delete(key int) {
+	t.Root = deleteNode(t.Root, key)
+}
+func deleteNode(root *TreeNode, key int) *TreeNode {
 	if key < root.Val {
-		root.Left = DeleteNode(root.Left, key)
+		root.Left = deleteNode(root.Left, key)
 	} else if key > root.Val {
-		root.Right = DeleteNode(root.Right, key)
+		root.Right = deleteNode(root.Right, key)
 	} else {
 		// ✅ 找到要删除的节点（val == key）
 
 		// 情况 1：叶子节点（左右都是 nil）
-		if root.Left == nil && root.Right == nil {
+		if root.isLeaf() {
 			return nil
 		}
 
@@ -92,5 +93,20 @@ func DeleteNode(root *TreeNode, key int) *TreeNode {
 		}
 
 		// 情况 3 留空，后续处理
+		findMin := func(node *TreeNode) *TreeNode {
+			for node.Left != nil {
+				node = node.Left
+			}
+			return node
+		}
+		minNode := findMin(root.Right)
+		root.Val = minNode.Val
+		root.Right = deleteNode(root.Right, minNode.Val)
 	}
+	return root
+}
+
+// getTreeDepth calculates the depth of the tree
+func (t *BST) Height() int {
+	return MaxDepth(t.Root)
 }

@@ -67,6 +67,9 @@ func HasPathSum(root *TreeNode, targetSum int) bool {
 // MaxDepth 返回二叉树的最大深度
 func MaxDepth(root *TreeNode) int {
 	// 你来实现
+	if root == nil {
+		return 0
+	}
 	if root.isLeaf() {
 		return 1
 	}
