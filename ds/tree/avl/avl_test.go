@@ -1,4 +1,4 @@
-package tree
+package avl
 
 import (
 	"reflect"
@@ -106,5 +106,28 @@ func TestAVLTree_InsertCausesRL(t *testing.T) {
 
 	if !isBalanced(tree.Root) {
 		t.Errorf("Tree is not balanced after RL rotation case")
+	}
+}
+
+func TestAVLTree_Delete(t *testing.T) {
+	tree := &AVLTree{}
+	vals := []int{50, 30, 70, 20, 40, 60, 80}
+	for _, v := range vals {
+		tree.Insert(v)
+	}
+
+	tree.Delete(20) // 叶子节点
+	tree.Delete(30) // 有一个子树
+	tree.Delete(50) // 有两个子树
+
+	got := tree.InOrderTraversal()
+	want := []int{40, 60, 70, 80}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("Delete result mismatch: got %v, want %v", got, want)
+	}
+
+	if !isBalanced(tree.Root) {
+		t.Errorf("Tree is not balanced after deletions")
 	}
 }

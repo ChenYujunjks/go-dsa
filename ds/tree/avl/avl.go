@@ -1,4 +1,4 @@
-package tree
+package avl
 
 type AVLNode struct {
 	Val    int
@@ -105,6 +105,7 @@ func (t *AVLTree) InOrderTraversal() []int {
 	return result
 }
 
+// avl inOrder
 func inOrder(n *AVLNode, result *[]int) {
 	if n == nil {
 		return
@@ -112,4 +113,69 @@ func inOrder(n *AVLNode, result *[]int) {
 	inOrder(n.Left, result)
 	*result = append(*result, n.Val)
 	inOrder(n.Right, result)
+}
+
+// Delete 从 AVL 树中删除指定值
+func (t *AVLTree) Delete(val int) {
+	t.Root = deleteNode(t.Root, val)
+}
+
+func deleteNode(root *AVLNode, val int) *AVLNode {
+	if root == nil {
+		return nil
+	}
+
+	if val < root.Val {
+		root.Left = deleteNode(root.Left, val)
+	} else if val > root.Val {
+		root.Right = deleteNode(root.Right, val)
+	} else {
+		// 找到待删除节点
+		if root.Left == nil {
+			return root.Right
+		} else if root.Right == nil {
+			return root.Left
+		}
+
+		// 用右子树最小值代替当前节点
+		minLarger := getMinValueNode(root.Right)
+		root.Val = minLarger.Val
+		root.Right = deleteNode(root.Right, minLarger.Val)
+	}
+
+	// 更新当前节点高度
+	root.Height = 1 + max(height(root.Left), height(root.Right))
+
+	// 平衡
+	balance := getBalanceFactor(root)
+
+	// LL
+	if balance > 1 && getBalanceFactor(root.Left) >= 0 {
+		return rotateRight(root)
+	}
+	// LR
+	if balance > 1 && getBalanceFactor(root.Left) < 0 {
+		root.Left = rotateLeft(root.Left)
+		return rotateRight(root)
+	}
+	// RR
+	if balance < -1 && getBalanceFactor(root.Right) <= 0 {
+		return rotateLeft(root)
+	}
+	// RL
+	if balance < -1 && getBalanceFactor(root.Right) > 0 {
+		root.Right = rotateRight(root.Right)
+		return rotateLeft(root)
+	}
+
+	return root
+}
+
+// getMinValueNode 返回某子树中的最小值节点（中序后继）
+func getMinValueNode(node *AVLNode) *AVLNode {
+	current := node
+	for current.Left != nil {
+		current = current.Left
+	}
+	return current
 }
