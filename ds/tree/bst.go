@@ -72,6 +72,9 @@ func (t *BST) Delete(key int) {
 	t.Root = deleteNode(t.Root, key)
 }
 func deleteNode(root *TreeNode, key int) *TreeNode {
+	if root == nil {
+		return nil
+	}
 	if key < root.Val {
 		root.Left = deleteNode(root.Left, key)
 	} else if key > root.Val {
@@ -92,7 +95,7 @@ func deleteNode(root *TreeNode, key int) *TreeNode {
 			return root.Left
 		}
 
-		// 情况 3 留空，后续处理
+		// 定义 辅助函数
 		findMin := func(node *TreeNode) *TreeNode {
 			for node.Left != nil {
 				node = node.Left

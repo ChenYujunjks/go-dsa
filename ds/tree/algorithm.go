@@ -77,3 +77,34 @@ func MaxDepth(root *TreeNode) int {
 	right := MaxDepth(root.Right)
 	return 1 + max(left, right)
 }
+
+func balanceBST(root *TreeNode) *TreeNode {
+	var nodes []*TreeNode
+
+	// 中序遍历收集节点
+	var inorder func(*TreeNode)
+	inorder = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		inorder(node.Left)
+		nodes = append(nodes, node)
+		inorder(node.Right)
+	}
+	inorder(root)
+
+	// nodes已经按顺序写好 构建平衡 BST
+	var build func(int, int) *TreeNode
+	build = func(left, right int) *TreeNode {
+		if left > right {
+			return nil
+		}
+		mid := (left + right) / 2
+		root := nodes[mid]
+		root.Left = build(left, mid-1)
+		root.Right = build(mid+1, right)
+		return root
+	}
+
+	return build(0, len(nodes)-1)
+}
