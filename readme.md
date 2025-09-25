@@ -1,5 +1,7 @@
 # Go Data Structures Playground
-
+[![Go Version](https://img.shields.io/badge/go-1.21+-blue)](https://golang.org/doc/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/ChenYujunjks/go_beta?style=social)](https://github.com/ChenYujunjks/go_beta/stargazers)
 > Implementing classic data structures in pure Go 🚀
 > 用 Go 语言实现所有经典数据结构，从教材到实战。
 
